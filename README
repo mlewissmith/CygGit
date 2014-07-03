@@ -1,4 +1,6 @@
 Build git for cygwin
 
-- git submodule add git://github.com/git/git.git
-  + revision 1.7.9
+git submodule add git://github.com/git/git.git
+revision 1.7.9
+
+Branch b1.7.x
