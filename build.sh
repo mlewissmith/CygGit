@@ -1,13 +1,14 @@
 #!/bin/bash
 set -e -x
+umask 0022
 
 VERSION=1.7.9
 BUILDDIR=$(dirname $0)
 BUILDROOT=${BUILDDIR}/BUILDROOT
 
 #prep
-cd ${BUILDDIR}/git
 #git submodule update
+cd ${BUILDDIR}/git
 
 #build
 cd ${BUILDDIR}/git
