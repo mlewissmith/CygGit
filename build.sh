@@ -2,13 +2,16 @@
 set -e -x
 umask 0022
 
+NAME=git
 VERSION=1.9.0
 BUILDDIR=$(dirname $(readlink -e $0))
 BUILDROOT=${BUILDDIR}/BUILDROOT
 
 #prep
-#git submodule update
+rm -fr ${BUILDROOT}
 cd ${BUILDDIR}/git
+git clean -xdf
+
 
 #build
 cd ${BUILDDIR}/git
@@ -18,8 +21,8 @@ make all
 
 #install
 cd ${BUILDDIR}/git
-make DESTDIR=${BUILDROOT}
+make DESTDIR=${BUILDROOT} install
 
 #package
 cd ${BUILDROOT}
-
+tar -jcvf ${BUILDDIR}/${NAME}-${VERSION}.tar.bz2 *
