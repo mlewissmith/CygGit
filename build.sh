@@ -2,7 +2,7 @@
 set -e -x
 umask 0022
 
-VERSION=1.7.9
+VERSION=1.9.0
 BUILDDIR=$(dirname $(readlink -e $0))
 BUILDROOT=${BUILDDIR}/BUILDROOT
 
