@@ -1,28 +1,69 @@
 #!/bin/bash
-set -e -x
+set -ex
 umask 0022
 
-NAME=git
-VERSION=1.9.0
-BUILDDIR=$(dirname $(readlink -e $0))
-BUILDROOT=${BUILDDIR}/BUILDROOT
+name=git
+version=1.9.0
+release=0.1
+
+_sourcedir=$(dirname $(readlink -e $0))
+_builddir=$(dirname $(readlink -e $0))
+buildroot=${_builddir}/BUILDROOT
+__setup_n=${name}-${version}
 
 #prep
-rm -fr ${BUILDROOT}
-cd ${BUILDDIR}/git
-git clean -xdf
+{
+    __setup_n=git
+    rm -rf ${buildroot}
+    cd ${_builddir}
+    cd ${__setup_n}
+    git clean -xdf
+}
 
 
 #build
-cd ${BUILDDIR}/git
+{
+    cd ${_builddir}
+    cd ${__setup_n}
+}
 make configure
-./configure --prefix=/opt/git-${VERSION}
-make all
+./configure --prefix=/opt/${name}-${version}
+make -j$(nproc) all
 
 #install
-cd ${BUILDDIR}/git
-make DESTDIR=${BUILDROOT} install
+{
+    cd ${_builddir}
+    cd ${__setup_n}
+}
+make DESTDIR=${buildroot} install
 
-#package
-cd ${BUILDROOT}
-tar -jcvf ${BUILDDIR}/${NAME}-${VERSION}.tar.bz2 *
+mkdir -p ${buildroot}/etc/profile.d
+cat <<EOF>${buildroot}/etc/profile.d/${name}-${version}.sh
+export PATH=/opt/${name}-${version}/bin:$PATH
+EOF
+
+#PACKAGE
+{
+    cd ${_sourcedir}
+}
+mkdir -p ${buildroot}/etc/uninstall
+sed "s:%MANIFEST%:${name}-${version}.lst:g" _uninstaller.sh > ${buildroot}/etc/uninstall/${name}-${version}-uninstall.sh
+chmod 0644 ${buildroot}/etc/uninstall/${name}-${version}-uninstall.sh
+
+find ${buildroot} -mindepth 1 -not -type d -printf "%P\n" > ${name}-${version}.lst
+find ${buildroot} -mindepth 1 -type d -printf "%P/\n" >> ${name}-${version}.lst
+sort ${name}-${version}.lst >  ${buildroot}/${name}-${version}.lst
+
+sed "s:%MANIFEST%:${name}-${version}.lst:g" _installer.sh > ${buildroot}/_installer.sh
+chmod 0755 ${buildroot}/_installer.sh
+
+makeself --bzip2 ./BUILDROOT ${name}-${version}-${release}.${MACHTYPE}.sh "${name}-${version}-${release}.${MACHTYPE}" ./_installer.sh
+
+
+
+# tar -cf ${_builddir}/${name}-${version}.${MACHTYPE}.tar *
+# mkdir -p ${buildroot}/etc/setup
+# tar -tf ${_builddir}/${name}-${version}.${MACHTYPE}.tar > ${buildroot}/etc/setup/${name}-${version}.lst
+# gzip ${buildroot}/etc/setup/${name}-${version}.lst
+# tar --append -f ${_builddir}/${name}-${version}.${MACHTYPE}.tar ./etc/setup --transform "s:^\./::"
+# bzip2 ${_builddir}/${name}-${version}.${MACHTYPE}.tar
