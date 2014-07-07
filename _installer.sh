@@ -15,19 +15,20 @@ zcat /etc/setup/*.lst.gz | sort -u > _installed.lst
 for file in $(<${MANIFEST}) ; do
     if egrep -q "^${file}$" _installed.lst ; then
         if [ -d ${file} ] ; then
-            # it's a directory.  Proceed
+            "$file: directory exists"
             true
         else
-            echo "$file: CONFLICT"
+            echo "$file: **CONFLICT** file exists"
             false
         fi
     fi
 done
 
 ## Verification OK.  Install...
-echo "Installing..."
+read -p "Continue with installation? [y/N] "
+[[ ${REPLY} == "y" ]] || false
 for file in $(<${MANIFEST}) ; do
-    if [[ -d $file && ! -e /${file} ]] ;
+    if [[ -d $file && ! -e /${file} ]] ; then
         mkdir -v /${file}
     else
         cp -v ${file} /${file}
