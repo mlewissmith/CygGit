@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e -x
+set -ex
 umask 0022
 
 name=git
@@ -48,10 +48,10 @@ EOF
 }
 find ${buildroot} -mindepth 1 -not -type d -printf "%P\n" > ${name}-${version}.lst
 find ${buildroot} -mindepth 1 -type d -printf "%P/\n" >> ${name}-${version}.lst
-sort ${name}-${version}.lst | gzip -c >  ${buildroot}/${name}-${version}.lst.gz
+sort ${name}-${version}.lst >  ${buildroot}/${name}-${version}.lst
 
 install ${_sourcedir}/_installer.sh ${buildroot}
-makeself --bzip2 ./BUILDROOT ${name}-${version}-${release}.${MACHTYPE}.sh "${name}-${version} INSTALLER" ./_installer.sh
+makeself --bzip2 ./BUILDROOT ${name}-${version}-${release}.${MACHTYPE}.sh "${name}-${version}-${release}.${MACHTYPE}" ./_installer.sh ${name}-${version}.lst
 
 
 
