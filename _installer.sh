@@ -6,7 +6,7 @@ MANIFEST=%MANIFEST%
 
 if [[ "${OSTYPE}" != "cygwin" ]] ; then
     echo "$OSTYPE: not cygwin"
-    false
+    exit 1
 fi
 
 ## assume /etc/setup/*.lst.gz
@@ -19,14 +19,14 @@ for file in $(<${MANIFEST}) ; do
             true
         else
             echo "$file: **CONFLICT** file exists"
-            false
+            exit 1
         fi
     fi
 done
 
 ## Verification OK.  Install...
 read -p "Continue with installation? [y/N] "
-[[ ${REPLY} == "y" ]] || false
+[[ ${REPLY} == "y" ]] || exit 0
 for file in $(<${MANIFEST}) ; do
     echo "${file}"
     if [[ -d $file ]] ; then
