@@ -15,7 +15,7 @@ zcat /etc/setup/*.lst.gz | sort -u > _installed.lst
 for file in $(<${MANIFEST}) ; do
     if egrep -q "^${file}$" _installed.lst ; then
         if [ -d ${file} ] ; then
-            "$file: directory exists"
+            echo "$file: directory exists"
             true
         else
             echo "$file: **CONFLICT** file exists"
