@@ -3,8 +3,8 @@ set -ex
 umask 0022
 
 name=git
-version=1.9.1
-release=1.0
+version=2.0.0
+release=0.1
 
 #BuildRequires(makeself)
 #BuildRequires(gettext-devel)
