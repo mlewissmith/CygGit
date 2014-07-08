@@ -1,6 +1,16 @@
 RELEASE NOTES
 =============
 
+git-1.9.1-0.1
+-------------
+
+Upgrade to git-1.9.1
+
+* Cygwin installation script `git-1.9.1-0.1.i686-pc-cygwin.sh`
+* Fixes issue #2 **Uninstaller fails when directories not empty**
+
+
+
 git-1.9.0-1.0
 -------------
 * Cygwin installation script `git-1.9.0-1.0.i686-pc-cygwin.sh`
