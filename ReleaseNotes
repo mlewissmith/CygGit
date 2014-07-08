@@ -1,0 +1,30 @@
+RELEASE NOTES
+=============
+
+git-1.9.0-1.0
+-------------
+* Cygwin installation script `git-1.9.0-1.0.i686-pc-cygwin.sh`
+* Fixes issue #1 **/etc/profile.d/git-1.9.0.sh PATH error**
+
+
+
+git-1.9.0-0.1
+-------------
+* Cygwin installation script `git-1.9.0-0.1.i686-pc-cygwin.sh`
+  - prepared using `makeself`
+
+
+
+CygGit-1.9.0-rc0
+----------------
+* PRE-RELEASE
+* tarball `git-1.9.0.tar.bz2`
+  - git-1.9.0 packaged into 'opt/git-1.9.0/...'
+  - NO UNINSTALLER
+
+Install into root of cygwin tree:
+
+    cd /
+    tar -jxvf /path/to/git-1.9.0.tar.bz2
+
+
