@@ -30,9 +30,9 @@ gzip -c ${MANIFEST} > ${setup_gz}
 for file in $(<${MANIFEST}) ; do
     if egrep -q "^${file}$" _installed.lst ; then
         if [[ -d /${file} ]] ; then
-            echo "${file}: skip directory"
+            echo "[WARNING] ${file}: Required directory"
         else
-            echo "${file}:  **CANNOT REMOVE**"
+            echo "[FATAL] ${file}: Required file"
             exit 1
         fi
     fi
@@ -41,7 +41,13 @@ done
 ## UNINSTALL!!
 for file in $(tac ${MANIFEST}) ; do
     if [[ -d /${file} ]] ; then
-        egrep -q "^${file}$" _installed.lst || rmdir -v /${file}
+        if egrep -q "^${file}$" _installed.lst ; then
+            echo "${file}: skip required directory"
+        elif [[ -n $(ls -A /${file}) ]] ; then
+            echo "[WARNING] ${file}: directory not empty"
+        else
+            rmdir -v /${file}
+        fi
     else
         rm -fv /${file}
     fi
