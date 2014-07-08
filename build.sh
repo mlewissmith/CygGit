@@ -4,7 +4,10 @@ umask 0022
 
 name=git
 version=1.9.0
-release=0.1
+release=0.2
+
+#BuildRequires(makeself)
+#BuildRequires(gettext-devel)
 
 _sourcedir=$(dirname $(readlink -e $0))
 _builddir=$(dirname $(readlink -e $0))
@@ -39,7 +42,7 @@ make DESTDIR=${buildroot} install
 
 mkdir -p ${buildroot}/etc/profile.d
 cat <<EOF>${buildroot}/etc/profile.d/${name}-${version}.sh
-export PATH=/opt/${name}-${version}/bin:$PATH
+export PATH=/opt/${name}-${version}/bin:\$PATH
 EOF
 
 #PACKAGE
