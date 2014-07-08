@@ -8,6 +8,7 @@ release=1.0
 
 #BuildRequires(makeself)
 #BuildRequires(gettext-devel)
+#BuildRequires(libcurl-devel)
 
 _sourcedir=$(dirname $(readlink -e $0))
 _builddir=$(dirname $(readlink -e $0))
