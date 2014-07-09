@@ -1,3 +1,5 @@
+umask 0022
+
 _check_requires () {
     for fn in "$@" ; do
         [[ ${fn#/} == $fn ]] && fn="/etc/setup/${fn}.lst.gz"

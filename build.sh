@@ -1,7 +1,6 @@
 #!/bin/bash
-[ -e _macros.sh ] && source _macros.sh
 set -e
-umask 0022
+source _build_sh.rc
 
 name=git
 version=2.0.1
@@ -14,6 +13,7 @@ BuildRequires asciidoc
 BuildRequires xmlto
 BuildRequires docbook-xml45
 
+set -x
 _sourcedir=$(dirname $(readlink -e $0))
 _builddir=$(dirname $(readlink -e $0))
 buildroot=${_builddir}/BUILDROOT
