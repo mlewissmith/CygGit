@@ -5,7 +5,7 @@ umask 0022
 
 name=git
 version=2.0.1
-release=1.0
+release=1.0.pre1
 
 BuildRequires makeself
 BuildRequires gettext-devel
@@ -13,8 +13,6 @@ BuildRequires libcurl-devel
 BuildRequires asciidoc
 BuildRequires xmlto
 BuildRequires docbook-xml45
-
-false
 
 _sourcedir=$(dirname $(readlink -e $0))
 _builddir=$(dirname $(readlink -e $0))
@@ -60,8 +58,8 @@ EOF
     cd ${_sourcedir}
 }
 mkdir -p ${buildroot}/etc/uninstall
-sed "s:%MANIFEST%:${name}-${version}.lst:g" _uninstaller.sh > ${buildroot}/etc/uninstall/${name}-${version}-uninstall.sh
-chmod 0644 ${buildroot}/etc/uninstall/${name}-${version}-uninstall.sh
+sed "s:%MANIFEST%:${name}-${version}.lst:g" _uninstaller.sh > ${buildroot}/etc/uninstall/${name}-${version}-${release}-uninstall.sh
+chmod 0644 ${buildroot}/etc/uninstall/${name}-${version}-${release}-uninstall.sh
 
 find ${buildroot} -mindepth 1 -not -type d -printf "%P\n" > ${name}-${version}.lst
 find ${buildroot} -mindepth 1 -type d -printf "%P/\n" >> ${name}-${version}.lst
@@ -72,11 +70,3 @@ chmod 0755 ${buildroot}/_installer.sh
 
 makeself --bzip2 ./BUILDROOT ${name}-${version}-${release}.${MACHTYPE}.sh "${name}-${version}-${release}.${MACHTYPE}" ./_installer.sh
 
-
-
-# tar -cf ${_builddir}/${name}-${version}.${MACHTYPE}.tar *
-# mkdir -p ${buildroot}/etc/setup
-# tar -tf ${_builddir}/${name}-${version}.${MACHTYPE}.tar > ${buildroot}/etc/setup/${name}-${version}.lst
-# gzip ${buildroot}/etc/setup/${name}-${version}.lst
-# tar --append -f ${_builddir}/${name}-${version}.${MACHTYPE}.tar ./etc/setup --transform "s:^\./::"
-# bzip2 ${_builddir}/${name}-${version}.${MACHTYPE}.tar
