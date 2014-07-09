@@ -1,17 +1,20 @@
 #!/bin/bash
-set -ex
+[ -e _macros.sh ] && source _macros.sh
+set -e
 umask 0022
 
 name=git
 version=2.0.1
 release=1.0
 
-#BuildRequires(makeself)
-#BuildRequires(gettext-devel)
-#BuildRequires(libcurl-devel)
-#BuildRequires(asciidoc)
-#BuildRequires(xmlto)
-#BuildRequires(docbook-xml45)
+BuildRequires makeself
+BuildRequires gettext-devel
+BuildRequires libcurl-devel
+BuildRequires asciidoc
+BuildRequires xmlto
+BuildRequires docbook-xml45
+
+false
 
 _sourcedir=$(dirname $(readlink -e $0))
 _builddir=$(dirname $(readlink -e $0))

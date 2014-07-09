@@ -1,0 +1,17 @@
+_check_requires () {
+    for fn in "$@" ; do
+        [[ ${fn#/} == $fn ]] && fn="/etc/setup/${fn}.lst.gz"
+        if [[ ! -e $fn ]] ; then
+            echo "[FATAL] ${fn}: missing"
+            false
+        fi
+    done
+}
+
+BuildRequires () {
+    _check_requires "$@"
+}
+
+Requires () {
+    echo "[WARNING] Requires: $@ (not implemented)"
+}
