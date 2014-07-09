@@ -46,7 +46,7 @@ make -j$NPROC doc
     cd ${__setup_n}
 }
 make DESTDIR=${buildroot} install
-make DESTDIR=${buildroot} instal-doc
+make DESTDIR=${buildroot} install-doc
 
 mkdir -p ${buildroot}/etc/profile.d
 cat <<EOF>${buildroot}/etc/profile.d/${name}-${version}.sh
