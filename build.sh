@@ -5,7 +5,7 @@ umask 0022
 
 name=git
 version=2.0.1
-release=1.0.pre1
+release=1.1
 
 BuildRequires makeself
 BuildRequires gettext-devel
