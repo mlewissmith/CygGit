@@ -9,6 +9,9 @@ release=1.0
 #BuildRequires(makeself)
 #BuildRequires(gettext-devel)
 #BuildRequires(libcurl-devel)
+#BuildRequires(asciidoc)
+#BuildRequires(xmlto)
+#BuildRequires(docbook-xml45)
 
 _sourcedir=$(dirname $(readlink -e $0))
 _builddir=$(dirname $(readlink -e $0))
@@ -30,9 +33,11 @@ __setup_n=${name}-${version}
     cd ${_builddir}
     cd ${__setup_n}
 }
+NPROC=$(nproc)
 make configure
 ./configure --prefix=/opt/${name}-${version}
-make -j$(nproc) all
+make -j$NPROC all
+make -j$NPROC doc
 
 #install
 {
@@ -40,6 +45,7 @@ make -j$(nproc) all
     cd ${__setup_n}
 }
 make DESTDIR=${buildroot} install
+make DESTDIR=${buildroot} instal-doc
 
 mkdir -p ${buildroot}/etc/profile.d
 cat <<EOF>${buildroot}/etc/profile.d/${name}-${version}.sh
