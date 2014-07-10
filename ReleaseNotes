@@ -1,6 +1,16 @@
 RELEASE NOTES
 =============
 
+git-2.0.1-1.1
+-------------
+
+Now with documentation!
+
+  * Git version 2.0.1
+  * buildscript honours `BuildRequires` statements
+  * Cygwin installation script `git-2.0.1-1.1.i686-pc-cygwin.sh`
+
+
 git-2.0.1-1.0
 -------------
 
