@@ -22,16 +22,16 @@ UNINSTALLING
 
 BUILDING FROM SOURCE
 --------------------
-* Clone this repository
+Clone this repository
 
     git clone https://github.com/mlewissmith/CygGit.git
 
-* Update submodule(s)
+Update submodule(s)
 
     cd CygGit
     git submodule update
 
-* Run buildscript
+Run buildscript
   
     ./build.sh
 
