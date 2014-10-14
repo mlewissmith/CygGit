@@ -23,11 +23,16 @@ UNINSTALLING
 BUILDING FROM SOURCE
 --------------------
 * Clone this repository
-  git clone https://github.com/mlewissmith/CygGit.git
+
+    git clone https://github.com/mlewissmith/CygGit.git
+
 * Update submodule(s)
-  cd CygGit
-  git submodule update
+
+    cd CygGit
+    git submodule update
+
 * Run buildscript
-  ./build.sh
+  
+    ./build.sh
 
 ... creates self-extracting tarball.  Run it.
